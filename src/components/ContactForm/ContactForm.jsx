@@ -18,7 +18,9 @@ export const ContactForm = ({ contactsList }) => {
         checkForDuplicates(person)
             ? alert(`${person.name} is already in contacts`)
             : dispatch(add(person));
+        event.target.reset();
     };
+
     const checkForDuplicates = person =>
         contactsList.some(
             contact => contact.name.toLowerCase() === person.name.toLowerCase()
