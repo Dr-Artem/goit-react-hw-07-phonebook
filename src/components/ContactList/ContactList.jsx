@@ -1,17 +1,17 @@
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
-import { remove } from 'redux/contactsSlice';
 import style from './ContactList.module.css';
+import { deleteContact } from 'redux/contacts/contactsOperations';
 
 export const ContactList = ({ data }) => {
     const dispatch = useDispatch();
     return (
         <ul className={style.list}>
-            {data.map(({ id, name, number }) => {
+            {data.map(({ id, name, phone }) => {
                 return (
                     <li key={id} id={id} className={style.list_item}>
-                        {name}: {number}
-                        <button onClick={() => dispatch(remove(id))}>
+                        {name}: {phone}
+                        <button onClick={() => dispatch(deleteContact(id))}>
                             Delete
                         </button>
                     </li>

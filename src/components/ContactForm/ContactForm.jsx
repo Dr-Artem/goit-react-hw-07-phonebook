@@ -1,23 +1,23 @@
 import { nanoid } from 'nanoid';
 import { useDispatch } from 'react-redux';
-import { add } from 'redux/contactsSlice';
 import style from './ContactForm.module.css';
+import { addContact } from 'redux/contacts/contactsOperations';
 
 export const ContactForm = ({ contactsList }) => {
     const dispatch = useDispatch();
 
     const handleSubmit = event => {
         event.preventDefault();
-        const { name, number } = event.target.elements;
+        const { name, phone } = event.target.elements;
 
         const person = {
             id: nanoid(),
             name: name.value,
-            number: number.value,
+            phone: phone.value,
         };
         checkForDuplicates(person)
             ? alert(`${person.name} is already in contacts`)
-            : dispatch(add(person));
+            : dispatch(addContact(person));
         event.target.reset();
     };
 
@@ -42,7 +42,7 @@ export const ContactForm = ({ contactsList }) => {
                 <span>Number</span>
                 <input
                     type="tel"
-                    name="number"
+                    name="phone"
                     pattern="\+?\d{1,4}?[-.\s]?\(?\d{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
                     title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                     required
